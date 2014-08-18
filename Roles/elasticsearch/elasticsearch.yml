@@ -29,7 +29,7 @@
 # Cluster name identifies your cluster for auto-discovery. If you're running
 # multiple clusters on the same network, make sure you're using unique names.
 #
-cluster.name: elasticsearch
+cluster.name: elasticsearch23
 
 
 #################################### Node #####################################
@@ -37,7 +37,7 @@ cluster.name: elasticsearch
 # Node names are generated dynamically on startup, so you're relieved
 # from configuring them manually. You can tie this node to a specific name:
 #
-#node.name: "Franz Kafka"
+node.name: foo2334
 
 # Every node can be configured to allow or deny being eligible as the master,
 # and to allow or deny to store the data.
@@ -383,3 +383,7 @@ path.data: C:\LogData
 # it unless you need it is recommended (it is disabled by default).
 #
 #http.jsonp.enable: true
+
+foo.bar: uliefef3e3e23
+
+fwwf: efefe

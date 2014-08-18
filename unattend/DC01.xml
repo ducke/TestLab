@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<unattend xmlns="urn:schemas-microsoft-com:unattend" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State">
+  <settings pass="oobeSystem">
+    <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
+      <OOBE>
+        <HideEULAPage>true</HideEULAPage>
+        <SkipMachineOOBE>true</SkipMachineOOBE>
+        <SkipUserOOBE>true</SkipUserOOBE>
+        <ProtectYourPC>3</ProtectYourPC>
+        <NetworkLocation>Work</NetworkLocation>
+      </OOBE>
+      <UserAccounts>
+        <AdministratorPassword>
+          <Value>P@ssw0rd</Value>
+          <PlainText>true</PlainText>
+        </AdministratorPassword>
+        <LocalAccounts>
+          <LocalAccount wcm:action="add">
+            <Password>
+              <Value>P@ssw0rd</Value>
+              <PlainText>true</PlainText>
+            </Password>
+            <Description>localadmin</Description>
+            <DisplayName>localadmin</DisplayName>
+            <Group>Administrators</Group>
+            <Name>Administrator</Name>
+          </LocalAccount>
+        </LocalAccounts>
+      </UserAccounts>
+      <FirstLogonCommands>
+        <SynchronousCommand wcm:action="add">
+          <CommandLine>%SystemDrive%\Deployment\RunDSC.cmd &gt; %SystemDrive%\Deployment\RunDSC.log 2&lt;&amp;1</CommandLine>
+          <Description>Sets autologon to domain user.</Description>
+          <Order>1</Order>
+        </SynchronousCommand>
+      </FirstLogonCommands>
+    </component>
+  </settings>
+  <settings pass="specialize">
+    <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
+      <ComputerName>DC01</ComputerName>
+      <AutoLogon>
+        <Password>
+          <Value>P@ssw0rd</Value>
+          <PlainText>true</PlainText>
+        </Password>
+        <Enabled>true</Enabled>
+        <LogonCount>999</LogonCount>
+        <Username>Administrator</Username>
+      </AutoLogon>
+    </component>
+    <component name="Microsoft-Windows-DNS-Client" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <Interfaces>
+        <Interface wcm:action="add">
+          <DNSServerSearchOrder>
+            <IpAddress wcm:action="add" wcm:keyValue="1">192.168.100.1</IpAddress>
+          </DNSServerSearchOrder>
+          <Identifier>Ethernet</Identifier>
+        </Interface>
+      </Interfaces>
+    </component>
+    <component name="Microsoft-Windows-TCPIP" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <Interfaces>
+        <Interface wcm:action="add">
+          <Ipv4Settings>
+            <DhcpEnabled>false</DhcpEnabled>
+          </Ipv4Settings>
+          <UnicastIpAddresses>
+            <IpAddress wcm:action="add" wcm:keyValue="1">192.168.100.1/24</IpAddress>
+          </UnicastIpAddresses>
+          <!--                  <Routes>
+                      <Route wcm:action="add">
+                          <Identifier>1</Identifier>
+                          <Metric>10</Metric>
+                          <NextHopAddress>#GATEWAY#</NextHopAddress>
+                          <Prefix>0.0.0.0/0</Prefix>
+                      </Route>
+                  </Routes> -->
+          <Identifier>Ethernet</Identifier>
+        </Interface>
+      </Interfaces>
+    </component>
+  </settings>
+  <cpi:offlineImage cpi:source="wim:c:/vhd/install.wim#Windows Server 2012 R2 SERVERSTANDARD" xmlns:cpi="urn:schemas-microsoft-com:cpi" />
+</unattend>

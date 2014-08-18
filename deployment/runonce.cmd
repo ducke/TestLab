@@ -1,0 +1,1 @@
+powershell -c Set-DscLocalConfigurationManager -Path c:\windows\system32\configuration

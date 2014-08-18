@@ -1,0 +1,49 @@
+configuration LogStash
+{
+    param (
+        $LSSourcePath,
+        $LSDestinationPath
+
+    )
+    #Import-DSCResource -ModuleName xNetworking
+
+    node localhost {
+
+        File EnsureLogStashSource
+        {
+                Type = 'Directory'
+                SourcePath = "$SourcePath\logstash-1.4.2"
+                DestinationPath = $DestinationPath
+                Ensure = "Present"
+                Recurse = $true
+        }
+
+        xFirewall AllowLSFirewall
+        {
+            Name                  = "LogStash Firewall"
+            DisplayName           = "Firewall Rule for LogStash"
+            Ensure                = "Present"
+            Access                = "Allow"
+            State                 = "Enabled"
+            Profile               = ("Domain","Private")
+            Direction             = "Inbound"
+            LocalPort             = ("3515")
+            Protocol              = "TCP"
+        }
+
+        File EnsurensssmSource
+        {
+                Type = 'File'
+                SourcePath = "$SourcePath\nssm-2.23\win64\nssm.exe"
+                DestinationPath = "$DestinationPath\bin\nssm.exe"
+        }
+
+
+    }
+}
+
+Kibana -SourcePath "c:\dev\TestLab\Roles\LogStash" -DestinationPath "C:\LogStash"
+
+Start-DscConfiguration -Path .\Kibana -Verbose -Wait
+
+#nssm install logstash C:\LogStash\bin\logstash.bat "agent -f C:/logstash/bin/logstash.conf"

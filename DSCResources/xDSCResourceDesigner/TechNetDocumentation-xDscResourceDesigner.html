@@ -1,0 +1,116 @@
+﻿<body>
+<div id="longDesc">
+<span style="font-family:Calibri; font-size:medium">
+<h1 style="font-family:Calibri Light; color:#2e74b5; font-size:large">Introduction</h1>
+<p>The<strong> xDSCResourceDesigner</strong> module is a part of the Windows PowerShell Desired State Configuration (DSC) Resource Kit, which is 
+a tool to author PowerShell DSC Resources and produced by the PowerShell Team.This tool makes writing resources a breeze and ensure that all the rules which a DSC resource must conform to are met.</p>
+<p><strong>All of the functions/cmdlets in the Resource Designer Tool are provided AS IS, and are not supported through any Microsoft standard support program 
+or service. The "x" in xDSCResourceDesigner stands for experimental</strong>, which means that this tool will be <strong>fix forward</strong> 
+and monitored by the module owner(s).</p>
+<p>Please leave comments, feature requests, and bug reports in the Q &amp; A tab for this module.</p>
+<p>If you would like to modify <strong>xDSCResourceDesigner</strong> module, feel free. When modifying, please update the module name and the function names (instructions below). As specified in the license, you may copy or modify this tool as long as they are used on the Windows Platform.</p>
+<p>For more information about Windows PowerShell Desired State Configuration, check out the blog posts on the
+<a href="http://blogs.msdn.com/b/powershell/"><span style="color:#0000ff">PowerShell Blog</span></a> (</span><a href="http://blogs.msdn.com/b/powershell/archive/2013/11/01/configuration-in-a-devops-world-windows-powershell-desired-state-configuration.aspx"><span style="color:#0000ff">this</span></a> is a good starting point). There are 
+also great community resources, such as <a href="http://powershell.org/wp/tag/dsc/"><span style="color:#0000ff">PowerShell.org</span></a>, or
+<a href="http://www.powershellmagazine.com/tag/dsc/"><span style="color:#0000ff">PowerShell Magazine</span></a>. For more information on the DSC Resource Kit, check out 
+<a href="http://go.microsoft.com/fwlink/?LinkID=389546"><span style="color:#0000ff">this blog post</span></a>.<br></p>
+
+<h1 style="color:#2e74b5; font-family:Calibri Light; font-size:large">Installation</h1>
+<p>To install <strong >xDSCResourceDesigner</strong> module </p>
+<ul style="list-style-type:disc; direction:ltr">
+<li>Unzip the content under $env:ProgramFiles\WindowsPowerShell\Modules folder</li>
+</ul>
+<p>To confirm installation:<br></p>
+<ul style="list-style-type:disc; direction:ltr">
+<li>Run <strong>Get-Module -ListAvailable</strong> to see that <strong>xDSCResourceDesigner</strong> is among the modules listed<br></li>
+</ul>
+
+<h1 style="color:#2e74b5; font-family:Calibri Light; font-size:large">Requirements</h1>
+<p>This module requires the latest version of PowerShell (v4.0, which ships in Windows 8.1 or Windows Server 2012R2). To easily use PowerShell 4.0 on older operating systems,
+<a href="http://www.microsoft.com/en-us/download/details.aspx?id=40855"><span style="color:#0000ff">install WMF 4.0</span></a>. Please read the installation instructions 
+that are present on both the download page and the release notes for WMF 4.0.</p>
+
+<h1 style="color:#2e74b5; font-family:Calibri Light; font-size:large">Description</h1>
+<p>The <strong >xDSCResourceDesigner </strong> module exposes 6 functions: <strong >New-xDscResourceProperty, New-xDscResource, Update-xDscResource, Test-xDscResource, Test-xDscSchema and Import-xDscSchema </strong>. These uses of these functions are given below.</p>
+
+<h1 style="color:#2e74b5; font-family:Calibri Light; font-size:large">Details</h1>
+<p><strong>xDSCResourceDesigner</strong> module exposes the following functions:</p>
+<ul style="list-style-type:disc; direction:ltr">
+<li>
+    <strong>New-xDscResourceProperty</strong>: <span >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>For creating a property for the resource
+</li>
+<li>
+    <strong >New-xDscResource</strong>: <span >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>for creating the actual resource containing the schema and module skeleton
+</li>
+<li>
+    <strong >Update-xDscResource</strong>: for updating an existing resource with new properties
+</li>
+<li>
+    <strong >Test-xDscResource</strong>: <span >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>for testing whether an existing resource conforms to the rules required by DSC
+</li>
+<li>
+    <strong>Test-xDscSchema</strong>: <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>for testing whether an existing schema (schema.mof) conforms to the rules required by DSC
+</li>
+<li>
+    <strong>Import-xDscSchema</strong>: <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>for getting the properties in a schema returned as a hashtable
+</li>
+</ul>
+
+<h1 style="color:#2e74b5; font-family:Calibri Light; font-size:large">Renaming Requirements</h1>
+<p>When making changes to these resources, we suggest the following practice:</p>
+<ol style="list-style-type:decimal; direction:ltr">
+<li>
+    Update the following names by replacing MSFT with your company/community name and replacing the <strong>"x"</strong> with <strong>"c"</strong> (short for "Community") or another prefix of your choice:
+<ul>
+<li>
+    <strong>Module name (ex: xDSCResourceDesigner</strong> becomes <strong>cDSCResourceDesigner</strong>)
+</li>
+<li>
+    <strong>Function name (ex: New-xDscResource</strong> becomes <strong>New-cDscResource</strong>)
+</li>
+</ul>
+</li>
+<li>
+    Update module and metadata information in the module manifest
+</li>
+<li>
+    Update any scripts that uses this module
+</li>
+</ol>
+<p><em>We reserve resource and module names without prefixes ("x" or "c") for future use (e.g. "xDSCResourceDesigner" or "DSCResourceDesigner"). If the next version of Windows Server ships with a "DSCResourceDesigner" module, we don't want to break any scripts that use any community modifications. Please keep a prefix such as "c" on all community modifications.</em></p>
+
+
+<h1 style="color:#2e74b5; font-family:Calibri Light; font-size:large">Versions</h1>
+<p>1.0.0.0</p>
+<ul style="list-style-type:disc; direction:ltr">
+<li>
+    Initial release with the following module
+<ul style="list-style-type:circle">
+<li>
+    xDSCResourceDesigner  
+</li>
+</ul>
+</li>
+</ul>
+
+<h1 style="margin-bottom:0pt; font-family:Calibri Light; color:#2e74b5; font-size:large">Example: Change the Name and the Workgroup Name</h1>
+This configuration will set a machine name and changes the workgroup it is in.<p></p>
+
+<h1 style="margin-bottom:0pt; font-family:Calibri Light; color:#2e74b5; font-size:large">Example: Switch from a Workgroup to a Domain</h1>
+This configuration sets the machine name and joins a domain.</br>
+<em>Note: this requires a credential.</em><p></p>
+
+<h1 style="margin-botton:0pt; color:#2e74b5; font-family:Calibri Light; font-size:large">Example: Change the Name while staying on the Domain</h1>
+This example will change the machines name while remaining on the domain.</br>
+<em>Note: this requires a credential.</em><p></p>
+
+<h1 style="margin-bottom:0pt; color:#2e74b5; font-family:Calibri Light; font-size:large">Example: Change the Name while staying on the Workgroup</h1>
+This example will change the machines name while remaining on the workgroup.<p></p>
+
+<h1 style="margin-bottom:0pt; color:#2e74b5; font-family:Calibri Light; font-size:large">Example: Switch from a Domain to a Workgroup</h1>
+This example switches the computer from a domain to a workgroup.</br>
+<em >Note: this requires a credential</em>.<p></p>
+
+</span>
+</div>
+</body>

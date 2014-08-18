@@ -1,0 +1,119 @@
+configuration ElasticSearch
+{
+    param (
+        $SourcePath
+
+    )
+    Import-DSCResource -ModuleName xNetworking
+
+    node localhost {
+        # Package P4V
+        # {
+        #     Ensure = "Present"
+        #     Name = "Java SE Development Kit 8u11"
+        #     Path = "$SourcePath\jdk-8u11-windows-x64.exe"
+        #     ProductId = '64A3A4F4-B792-11D6-A78A-00B0D0180110'
+        #     Arguments = '/s'
+        # }
+
+        Environment EnvironmentExample
+        {
+            Ensure = "Present"  # You can also set Ensure to "Absent"
+            Name = "JAVA_HOME"
+            Value = "C:\Program Files\Java\jdk1.8.0_11"
+        }
+
+        # Archive ArchiveExample
+        # {
+        #     Ensure = "Present"  # You can also set Ensure to "Absent"
+        #     Path = "$SourcePath\elasticsearch-1.3.2.zip"
+        #     Destination = "C:\ElasticSearch"
+        # }
+
+        File EnsureELKSource
+        {
+                Type = 'Directory'
+                SourcePath = "$SourcePath\elasticsearch-1.3.2"
+                DestinationPath = "C:\ElasticSearch"
+                Ensure = "Present"
+                Recurse = $true
+        }
+
+        File EnsureModulePath
+        {
+                Type = 'Directory'
+                DestinationPath = "C:\LogData"
+                Ensure = "Present"
+        }
+
+        File EnsureELKConfigFile
+        {
+                Type = 'File'
+                SourcePath = "$SourcePath\elasticsearch.yml"
+                DestinationPath = "C:\ElasticSearch\config\elasticsearch.yml"
+        }
+
+        File EnsureELKBatch
+        {
+                Type = 'File'
+                SourcePath = "$SourcePath\elasticsearch.bat"
+                DestinationPath = "C:\ElasticSearch\bin\elasticsearch.bat"
+        }
+
+        File EnsureELKServiceBatch
+        {
+                Type = 'File'
+                SourcePath = "$SourcePath\service.bat"
+                DestinationPath = "C:\ElasticSearch\bin\service.bat"
+        }
+
+        xFirewall AllowELKFirewall
+        {
+            Name                  = "ELK Firewall"
+            DisplayName           = "Firewall Rule for elasticsearch"
+            Ensure                = "Present"
+            Access                = "Allow"
+            State                 = "Enabled"
+            Profile               = ("Domain","Private")
+            Direction             = "Inbound"
+            LocalPort             = ("9200", "9300")
+            Protocol              = "TCP"
+            Description           = "Firewall Rule for Notepad.exe"
+        }
+
+        Script InstallELKService
+        {
+            SetScript = {
+
+                write-verbose ("JAVA_HOME={0}" -f [environment]::GetEnvironmentVariable("JAVA_HOME","Machine"))
+                $javahome = [environment]::GetEnvironmentVariable("JAVA_HOME","Machine")
+                [Environment]::SetEnvironmentVariable("JAVA_HOME", $javahome, "Machine")
+                & "C:\ElasticSearch\bin\Service.bat" --% install > C:\ElasticSearch\InstService.log 2<&1
+            }
+            TestScript = {
+                if (Get-Service elasticsearch-service-x64 -ErrorAction SilentlyContinue)
+                {
+                    return $true
+                }
+                else
+                {
+                    return $false
+                }
+            }
+            GetScript = {
+                return Get-Service elasticsearch-service-x64 | group status -AsHashTable
+            }
+        }
+
+        Service ServiceElasticSearch
+        {
+            Name = "elasticsearch-service-x64"
+            StartupType = "Automatic"
+            State = "Running"
+        }
+    }
+}
+
+ELK -SourcePath "c:\dev\TestLab\Roles\elasticsearch"
+
+Start-DscConfiguration -Path .\ELK -Verbose -Wait

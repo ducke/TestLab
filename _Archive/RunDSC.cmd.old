@@ -1,0 +1,5 @@
+powershell -c Set-DscLocalConfigurationManager -Path c:\windows\system32\configuration
+
+schtasks.exe /Create /SC ONSTART /TN "\Microsoft\Windows\Desired State Configuration\DSCRestartBootTask" /RU System /F /TR "PowerShell.exe -ExecutionPolicy RemoteSigned -File c:\dsc\DSCTemplate.ps1"
+
+powershell.exe -c c:\dsc\DSCTemplate.ps1

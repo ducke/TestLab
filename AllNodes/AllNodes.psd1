@@ -1,0 +1,4 @@
+@{
+    NodeName = "*"
+    PSDscAllowPlainTextPassword = $true
+}
